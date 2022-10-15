@@ -85,7 +85,6 @@ class LoadingButton @JvmOverloads constructor(
         context: Context
     ) {
         try {
-
             // button back-ground color
             bgColor = attr.getColor(
                 R.styleable.LoadingButton_bgColor,
@@ -133,7 +132,7 @@ class LoadingButton @JvmOverloads constructor(
         }
         // check the button state
         val buttonText = if (buttonState != ButtonState.Loading)
-            resources.getString(R.string.button_name) // We are loading as button text
+            resources.getString(R.string.button_download) // We are loading as button text
         else resources.getString(R.string.button_loading)// download as button text
 
         // write the text on custom button
@@ -144,5 +143,4 @@ class LoadingButton @JvmOverloads constructor(
     companion object {
         private const val TOTAL_PERCENT = 100.0
     }
-
 }
