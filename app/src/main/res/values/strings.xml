@@ -13,13 +13,16 @@
     <string name="button_loading">We are loading </string>
     <string name="title_activity_detail">DetailActivity</string>
     <string name="glide">Glide - Image Loading Library by BumpTech</string>
-    <string name="ok">Ok</string>
     <string name="loadapp">LoadApp - Current repository by Udacity</string>
     <string name="retrofit">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
     <string name="open_detail">Open Detail</string>
     <string name="download_image_description">Cloud Download Image</string>
     <string name="download_notification_channel_id" translatable="false">download_channel</string>
+    <string name="download_notification_channel_name" translatable="false">download_channel_name</string>
     <string name="file_name">File name: </string>
     <string name="status">Status: </string>
     <string name="success">Success</string>
+    <string name="option_select_warning">Select one option</string>
+    <string name="ok">Ok</string>
+    <string name="fail">Fail</string>
 </resources>

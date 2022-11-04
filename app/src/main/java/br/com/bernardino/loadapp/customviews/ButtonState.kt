@@ -1,4 +1,4 @@
-package br.com.bernardino.loadapp
+package br.com.bernardino.loadapp.customviews
 
 sealed class ButtonState {
     object Clicked : ButtonState()

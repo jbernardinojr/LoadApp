@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<MotionScene xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <Transition
+        app:constraintSetStart="@+id/start"
+        app:constraintSetEnd="@+id/end"
+        app:duration="2500">
+        <OnClick
+            app:targetId="@id/btn_ok"
+            app:clickAction="transitionToEnd" />
+    </Transition>
+
+    <ConstraintSet android:id="@+id/start">
+        <Constraint
+            android:id="@+id/btn_ok"
+            android:alpha="1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+    </ConstraintSet>
+
+    <ConstraintSet android:id="@+id/end">
+        <Constraint
+            android:id="@+id/btn_ok"
+            android:alpha="0"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/colorAccent"
+            android:text="@string/ok"
+            android:textColor="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+    </ConstraintSet>
+</MotionScene>

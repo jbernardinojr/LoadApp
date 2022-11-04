@@ -55,12 +55,19 @@
             android:textSize="18sp" />
     </RadioGroup>
 
-    <br.com.bernardino.loadapp.LoadingButton
+    <br.com.bernardino.loadapp.customviews.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
         android:text="@string/button_download"
+        android:background="@color/colorPrimary"
+        app:textColor="@color/white"
+        app:loadCompleteText="@string/button_download"
+        app:progressbarColor="@color/colorPrimaryDark"
+        app:loadingText="@string/button_loading"
+        app:animationDuration="5000"
+        app:progressCircleColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

@@ -1,11 +1,18 @@
-package br.com.bernardino.loadapp
+package br.com.bernardino.loadapp.extensions
 
+import android.annotation.SuppressLint
+import android.app.DownloadManager
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
+import android.database.Cursor
 import android.graphics.BitmapFactory
+import android.os.Bundle
 import androidx.core.app.NotificationCompat
+import br.com.bernardino.loadapp.DetailActivity
+import br.com.bernardino.loadapp.MainActivity
+import br.com.bernardino.loadapp.R
 
 // Notification ID.
 private val NOTIFICATION_ID = 0
@@ -17,17 +24,11 @@ private val FLAGS = 0
  *
  * @param context, activity context.
  */
-fun NotificationManager.sendNotification(messageBody: String, applicationContext: Context) {
-    // Create the content intent for the notification, which launches
-    // this activity
-    val contentIntent = Intent(applicationContext, MainActivity::class.java)
-
-    val contentPendingIntent = PendingIntent.getActivity(
-        applicationContext,
-        NOTIFICATION_ID,
-        contentIntent,
-        PendingIntent.FLAG_UPDATE_CURRENT
-    )
+fun NotificationManager.sendNotification(
+    messageBody: String,
+    cursor: Cursor,
+    applicationContext: Context
+) {
 
     val downloadImage = BitmapFactory.decodeResource(
         applicationContext.resources,
@@ -39,21 +40,24 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
         .bigLargeIcon(null)
 
     val openDetailIntent = Intent(applicationContext, DetailActivity::class.java)
-    val openDetailPendingIntent: PendingIntent = PendingIntent.getBroadcast(
+    openDetailIntent.putExtra(BUNDLE_FILE_STATUS, getDetailActivityIntentBundle(cursor))
+
+    val openDetailPendingIntent: PendingIntent = PendingIntent.getActivity(
         applicationContext,
         REQUEST_CODE,
         openDetailIntent,
-        PendingIntent.FLAG_ONE_SHOT
+        PendingIntent.FLAG_UPDATE_CURRENT
     )
 
     // Build the notification
     val builder = NotificationCompat.Builder(
         applicationContext,
-        applicationContext.getString(R.string.download_notification_channel_id))
+        applicationContext.getString(R.string.download_notification_channel_id)
+    )
         .setSmallIcon(R.drawable.download_icon)
         .setContentTitle(applicationContext.getString(R.string.notification_title))
         .setContentText(messageBody)
-        .setContentIntent(contentPendingIntent)
+        .setContentIntent(openDetailPendingIntent)
         .setAutoCancel(true)
         .setStyle(bigPictureStyle)
         .setLargeIcon(downloadImage)
@@ -71,3 +75,17 @@ fun NotificationManager.sendNotification(messageBody: String, applicationContext
 fun NotificationManager.cancelNotifications() {
     cancelAll()
 }
+
+@SuppressLint("Range")
+private fun getDetailActivityIntentBundle(cursor: Cursor) = Bundle().apply {
+    putString(
+        DetailActivity.FILE_NAME,
+        cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TITLE))
+    )
+    putInt(
+        DetailActivity.FILE_STATUS,
+        cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))
+    )
+}
+
+const val BUNDLE_FILE_STATUS = "BUNDLE_STATUS"
